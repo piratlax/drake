@@ -2,7 +2,9 @@
 package drake;
 
 import java.awt.Image;
+import java.sql.Connection;
 import javax.swing.ImageIcon;
+import org.apache.commons.codec.digest.DigestUtils;
 
 
 public class Acceso extends javax.swing.JFrame {
@@ -24,12 +26,12 @@ public class Acceso extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtUsuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jtClave = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jbAcceso = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Acceso");
@@ -53,13 +55,18 @@ public class Acceso extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel6.setText("Introduce tu clave");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/graficos/acceso1.png"))); // NOI18N
-        jButton1.setText("ACCEDER");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/graficos/acceso3.png"))); // NOI18N
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/graficos/acceso2.png"))); // NOI18N
-        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jbAcceso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/graficos/acceso1.png"))); // NOI18N
+        jbAcceso.setText("ACCEDER");
+        jbAcceso.setBorder(null);
+        jbAcceso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbAcceso.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/graficos/acceso3.png"))); // NOI18N
+        jbAcceso.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/graficos/acceso2.png"))); // NOI18N
+        jbAcceso.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jbAcceso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAccesoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,10 +83,10 @@ public class Acceso extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(298, 298, 298)))
                         .addComponent(jLabel5)
-                        .addComponent(jTextField1)
-                        .addComponent(jPasswordField1)))
+                        .addComponent(jtUsuario)
+                        .addComponent(jtClave)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
@@ -88,18 +95,18 @@ public class Acceso extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jbAcceso)
                         .addGap(0, 19, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(15, 15, 15)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)))
                 .addContainerGap())
@@ -133,10 +140,16 @@ public class Acceso extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel2.getAccessibleContext().setAccessibleName("GESTION DE TESORERIA");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAccesoActionPerformed
+        conexion Conexion = new conexion();
+        Connection con=Conexion.getConnection();
+        String md5=jtUsuario.getText();
+        String md5Hex=DigestUtils.md5Hex(md5);
+        System.out.println(md5Hex);
+    }//GEN-LAST:event_jbAccesoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,7 +188,6 @@ public class Acceso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -183,7 +195,8 @@ public class Acceso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jbAcceso;
+    private javax.swing.JPasswordField jtClave;
+    private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables
 }
